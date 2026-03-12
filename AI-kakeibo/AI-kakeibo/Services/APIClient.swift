@@ -53,7 +53,7 @@ struct ChatResponse: Codable {
 
 class APIClient {
     static let shared = APIClient()
-    private let baseURL = "http://localhost:8000"
+    private let baseURL = "https://ai-kakeibo-93l7.onrender.com"
 
     func analyzeReceipt(imageData: Data, mimeType: String) async throws -> ReceiptResponseDTO {
         let url = URL(string: "\(baseURL)/analyze-receipt")!

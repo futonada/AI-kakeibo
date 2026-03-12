@@ -92,6 +92,7 @@ struct ChatView: View {
                     }
                     .padding(.vertical)
                 }
+                .scrollDismissesKeyboard(.interactively)
                 .onChange(of: messages.count) { _, _ in
                     if let last = messages.last {
                         withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
@@ -131,9 +132,11 @@ struct ChatView: View {
         let text = inputText.trimmingCharacters(in: .whitespaces)
         guard !text.isEmpty else { return }
 
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         inputText = ""
         messages.append(ChatMessage(content: text, isUser: true))
         isLoading = true
+
 
         let receiptDTOs = filteredReceipts.map { receipt in
             ReceiptSummaryDTO(
